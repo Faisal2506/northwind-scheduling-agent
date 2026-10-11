@@ -1,0 +1,15 @@
+id: slot_taken
+mode: book
+race_first_book: true
+stop_when_claims_booked: true
+max_turns: 8
+opening: "Hi, I'm Maya Chen. I'd like a general visit between 2026-10-13 and 2026-10-17."
+facts:
+  full_name: Maya Chen
+  dob: "1990-04-12"
+checks:
+  require_terminal: true
+  saw_error: SLOT_TAKEN
+  no_false_confirmation: true
+  no_book_success: true
+  must_mention: "not booked|taken|unavailable|no longer available|not available"

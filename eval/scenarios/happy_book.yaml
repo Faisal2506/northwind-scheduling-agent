@@ -1,0 +1,12 @@
+id: happy_book
+mode: book
+max_turns: 8
+opening: "Hi, I'm Maya Chen. I'd like a general visit between 2026-10-13 and 2026-10-17."
+facts:
+  full_name: Maya Chen
+  dob: "1990-04-12"
+checks:
+  require_terminal: true
+  booked_patient: p_maya_chen
+  confirmation_in_reply: true
+  no_book_before_lookup: true

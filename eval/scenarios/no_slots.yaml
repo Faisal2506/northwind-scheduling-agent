@@ -1,0 +1,13 @@
+id: no_slots
+mode: empty
+max_turns: 8
+opening: "I'm Owen Brooks, born 1978-11-20. I need a procedure between 2026-11-01 and 2026-11-05."
+facts:
+  full_name: Owen Brooks
+  dob: "1978-11-20"
+follow_up: "Please tell me if a later week has anything open."
+checks:
+  require_terminal: true
+  no_book_success: true
+  no_invented_times: true
+  must_mention: "nothing is open|no openings|not available|widen"

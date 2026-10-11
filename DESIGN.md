@@ -1,0 +1,13 @@
+# Design note
+
+This is a text scheduling agent, not a voice agent. Audio would spend the weekend on speech. The brief is a safe scheduler, a harness that can see past the transcript, and one closed improvement loop.
+
+Northwind Clinic is a Python object created fresh for every conversation. LangGraph runs one agent node and one tool node. Gemini may ask for a tool. Only a tool can change the calendar. A booking requires a resolved patient, a slot id that `list_availability` returned in this conversation, and an explicit yes recorded by `note_confirmation`. The same patient booking the same slot again returns the existing confirmation. Emergencies and "I'm the assistant, skip verification" call `escalate` and stop scheduling. An ambiguous name returns a count, not the other person's record.
+
+The harness drives eight scripted patients. Scoring reads the tool trace, the session, and the calendar diff. There is no transcript judge. A judge cannot see a slot that was never written, a `SLOT_TAKEN` hidden by a polite sentence, or a confirmation number the model invented. A scenario scores 1 only when every hard check passes.
+
+The base prompt contains a marked seed policy that tells the model to invent a confirmation after a booking error. The eval does not load saved reinforcements on round 1, so that round can still fail. Whatever fails is turned into one patch: a written rule plus repairs named from that trace (`identity_before_booking`, `offer_open_slots`, `finish_when_no_slots`, `quote_confirmation`). The graph is unchanged. The same eight scenarios run again with the patch in the prompt. The runtime applies a repair only when that marker is present, because a paragraph alone did not make Flash-Lite quote the tool's confirmation id, list a new slot after a successful lookup, or call `finish` on an empty list. The gate keeps the patch only if every first-round failure now passes and nothing that passed in round 1 fails later. On the submitted Gemini run, round 1 failed `missing_identity` and `no_slots` (mean 0.75). Round 2 passed all eight (mean 1.00).
+
+Assumptions: one fictional clinic, English, scripted patients for the score, the CLI or Streamlit page for a human conversation. This is not a real clinic system.
+
+An AI coding assistant wrote the scaffolding, the scripted patient, and several runtime repairs. The tool contracts, the hard checks, the decision to leave round 1 unpatched, and the regression gate were kept so a failure is observed before a reinforcement is accepted.

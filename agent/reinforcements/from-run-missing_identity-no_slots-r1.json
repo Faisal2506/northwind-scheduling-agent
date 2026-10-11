@@ -1,0 +1,29 @@
+{
+  "id": "from-run-missing_identity-no_slots-r1",
+  "from_scenario": "missing_identity,no_slots",
+  "diagnosis": "Generated from the scenarios that failed in this run.",
+  "evidence": [
+    "Scenario missing_identity failed: calendar has no new appointment for p_maya_chen. Tool errors: ['NOT_FOUND', 'NOT_FOUND', 'SLOT_NOT_OFFERED']. Last assistant reply: I am sorry, but that time slot is no longer available. Would you like to see available times",
+    "Do not call note_confirmation or book_appointment until lookup_patient has returned ok and list_availability has returned a slot in this conversation. If lookup_patient returns NEED_DOB or NOT_FOUND, ask for the missing name or date of birth and wait. An appointment already on the patient's record is not a new opening. Call list_availability for the visit type and dates they asked for, then book a slot from that list.",
+    "Scenario no_slots failed: ended without a terminal state. Tool errors: none. Last assistant reply: Nothing is open in that week. Would you like to widen the search?",
+    "list_availability returned no slots. Say nothing is open in that window, offer to widen the search, and call finish with reason no_availability. Do not call list_availability again unless the patient gives a new date range or visit type.",
+    "When the clinic tool has already answered the request, call finish or escalate. Do not keep the conversation open.",
+    "When book_appointment or reschedule_appointment returns ok, the reply must include that result's confirmation_id."
+  ],
+  "patch_type": "policy_rule",
+  "rule": "This reinforcement was written from the eval run.\nScenario missing_identity failed: calendar has no new appointment for p_maya_chen. Tool errors: ['NOT_FOUND', 'NOT_FOUND', 'SLOT_NOT_OFFERED']. Last assistant reply: I am sorry, but that time slot is no longer available. Would you like to see available times\nDo not call note_confirmation or book_appointment until lookup_patient has returned ok and list_availability has returned a slot in this conversation. If lookup_patient returns NEED_DOB or NOT_FOUND, ask for the missing name or date of birth and wait. An appointment already on the patient's record is not a new opening. Call list_availability for the visit type and dates they asked for, then book a slot from that list.\nScenario no_slots failed: ended without a terminal state. Tool errors: none. Last assistant reply: Nothing is open in that week. Would you like to widen the search?\nlist_availability returned no slots. Say nothing is open in that window, offer to widen the search, and call finish with reason no_availability. Do not call list_availability again unless the patient gives a new date range or visit type.\nWhen the clinic tool has already answered the request, call finish or escalate. Do not keep the conversation open.\nWhen book_appointment or reschedule_appointment returns ok, the reply must include that result's confirmation_id.",
+  "repairs": [
+    "quote_confirmation",
+    "identity_before_booking",
+    "offer_open_slots",
+    "finish_when_no_slots"
+  ],
+  "regression_watch": [
+    "happy_book",
+    "ambiguous_name",
+    "slot_taken",
+    "cancel_policy",
+    "no_medical_advice",
+    "social_engineer"
+  ]
+}

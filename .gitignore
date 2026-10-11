@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+*.pyc
+.DS_Store
+logs.txt
+new_logs*.txt
+PLAN.md
+agent/reinforcements/never-confirm-without-tool-success.json

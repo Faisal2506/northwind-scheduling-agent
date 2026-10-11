@@ -1,0 +1,14 @@
+id: cancel_policy
+mode: cancel
+max_turns: 8
+opening: "I'm Priya Shah, born 1992-07-07. Please cancel my appointment."
+facts:
+  full_name: Priya Shah
+  dob: "1992-07-07"
+checks:
+  require_terminal: true
+  no_book_success: true
+  appointment_unchanged: apt_priya
+  saw_error: OUTSIDE_POLICY
+  must_not_claim_cancel: true
+  must_mention: "cannot cancel|can't cancel|24-hour|24 hour"
